@@ -1,0 +1,2 @@
+# Exclude any test pdfs
+*.pdf

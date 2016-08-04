@@ -8,7 +8,7 @@ out of them, or create a PDF with a subset of pages from a single PDF.
 
 ### Prerequisites
 
-* Java 7 or higher.
+* Java 8 or higher.
 
 ### Instructions
 

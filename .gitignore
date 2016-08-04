@@ -1,2 +1,8 @@
 # Exclude any test pdfs
 *.pdf
+# Exclude compiled files
+bin/
+# Exclude Eclipse files
+.settings/
+.project
+.classpath

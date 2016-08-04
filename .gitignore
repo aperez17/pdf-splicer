@@ -1,8 +1,11 @@
-# Exclude any test pdfs
-*.pdf
 # Exclude compiled files
 bin/
 # Exclude Eclipse files
 .settings/
 .project
 .classpath
+# Exclude Ant build and distribution files
+build/
+dist/
+# Exclude any test pdfs
+*.pdf

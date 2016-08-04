@@ -1,0 +1,58 @@
+<project name="PDF-Splicer" basedir="." default="test">
+
+	<property name="src.dir"        value="src"/>
+	<property name="lib.dir"        value="lib"/>
+	<property name="build.dir"      value="build"/>
+    <property name="build.main.dir" value="${build.dir}/main"/>
+	<property name="build.test.dir" value="${build.dir}/test"/>
+	<property name="dist.dir"       value="dist"/>
+	<property name="test.dir"       value="test"/>
+    <property name="junit.dir"      value="${lib.dir}/junitlib"/>
+	
+	<path id="classpath.main">
+		<fileset dir="${lib.dir}" includes="*.jar"/>
+        <pathelement location="${build.main.dir}"/>
+	</path>
+		
+	<path id="classpath.test">
+        <fileset dir="${lib.dir}" includes="*.jar"/>
+		<fileset dir="${junit.dir}" includes="*.jar"/>
+		<pathelement location="${build.main.dir}"/>
+		<pathelement location="${build.test.dir}"/>
+	</path>
+    
+    <target name="clean">
+        <delete dir="${build.dir}"/>
+        <delete dir="${dist.dir}"/>
+    </target>
+	
+	<target name="compile" depends="clean">
+		<mkdir dir="${build.main.dir}"/>
+        <mkdir dir="${build.test.dir}"/>
+		<javac srcdir="${src.dir}" destdir="${build.main.dir}" includeantruntime="false" classpathref="classpath.main"/>
+		<javac srcdir="${test.dir}" destdir="${build.test.dir}" includeantruntime="false" classpathref="classpath.test"/>
+	</target>
+	
+	<target name="dist" depends="compile">
+		<mkdir dir="${dist.dir}"/>
+		<jar jarfile="${dist.dir}/${ant.project.name}.jar" basedir="${build.main.dir}">
+			<manifest>
+				<attribute name="Main-Class" value="pdfsplicer.SplicerMain"/>
+				<attribute name="Class-Path" value="classpath.main"/>
+			</manifest>
+		</jar>
+	</target>
+	
+	<target name="build" depends="dist"/>
+	
+	<target name="test" depends="build">
+		<junit fork="yes">
+			<classpath refid="classpath.test"/> 
+			<batchtest fork="yes">
+				<formatter type="plain" usefile="false"/>
+    			<fileset dir="${test.dir}" includes="**/*Test*.java"/>
+			</batchtest>
+		</junit>
+	</target>
+	
+</project>

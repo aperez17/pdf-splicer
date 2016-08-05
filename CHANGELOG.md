@@ -1,3 +1,10 @@
+## 0.1.1 (August 5, 2016)
+
+Bug Fixes:
+
+- Fixed Ant buildfile so it now builds the correct JAR with dependencies
+- GUI window title changed from PDFSplicer to PDF-Splicer
+
 ## 0.1.0 (August 4, 2016)
 
 Features:

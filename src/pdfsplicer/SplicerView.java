@@ -149,7 +149,7 @@ public class SplicerView implements Observer {
 		frame = new JFrame();
 		frame.setBounds(100, 100, 750, 500);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.setTitle("PDFSplicer");
+		frame.setTitle("PDF-Splicer");
 		frame.setVisible(true);
 		
 		// FileChooser dialog to open and save PDFs

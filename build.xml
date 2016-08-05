@@ -1,4 +1,4 @@
-<project name="PDF-Splicer" basedir="." default="test">
+<project name="PDF-Splicer" basedir="." default="dist">
     
 	<property name="src.main.dir"   value="src"/>
     <property name="lib.dir"        value="lib"/>
@@ -9,7 +9,7 @@
     <property name="src.test.dir"   value="test"/>
     <property name="one-jar.dist.dir" value="${lib.dir}/one-jar-ant"/>
 	
-    <taskdef name="one-jar" classname="com.simontuffs.onejar.ant.OneJarTask"/>
+	<import file="${one-jar.dist.dir}/one-jar-ant-task.xml" optional="true"/>
     
     <path id="classpath.main">
         <fileset dir="${lib.dir}" includes="*.jar"/>

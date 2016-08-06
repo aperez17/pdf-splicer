@@ -1,3 +1,11 @@
+## 0.1.2 (August 5, 2016)
+
+Bug Fixes:
+
+- Fixed bug where entering the name of the new save file, and then
+backspacing and retyping the ".pdf" portion would cause a save error
+- Fixed bug where you could only save once
+
 ## 0.1.1 (August 5, 2016)
 
 Bug Fixes:

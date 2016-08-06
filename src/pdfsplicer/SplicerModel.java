@@ -370,11 +370,6 @@ public class SplicerModel extends Observable {
 		if (newdoc != null) {
 			newdoc.close();
 		}
-		for (PDDocument pdf : pdfList.values()) {
-			if (pdf != null) {
-				pdf.close();
-			}
-		}
 	}
 	
 	/**

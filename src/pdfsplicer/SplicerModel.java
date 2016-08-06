@@ -273,13 +273,17 @@ public class SplicerModel extends Observable {
 	 * @throws IOException if the selected PDF cannot be read
 	 */
 	public void changeLoadedPDFPreviewPage(int selectedIndex, int pageNum) throws IOException {
-		if (pageNum >= 1 && pageNum <= lNumPages) {
-			lPDFIcon = null;
-			
-			if (selectedIndex != -1) {
-				lPDFIcon = new ImageIcon(loadedRenderer.renderImage(pageNum - 1));
-				curLPage = pageNum;
-			}
+		if (pageNum < 1) {
+			pageNum = 1;
+		} else if (pageNum > lNumPages) {
+			pageNum = lNumPages;
+		}
+		
+		lPDFIcon = null;
+		
+		if (selectedIndex != -1) {
+			lPDFIcon = new ImageIcon(loadedRenderer.renderImage(pageNum - 1));
+			curLPage = pageNum;
 		}
 		
 		setChanged();
@@ -313,26 +317,30 @@ public class SplicerModel extends Observable {
 	 * @throws IOException if the loaded PDF from where the page came from cannot be read
 	 */
 	public void changeFinalPDFPreviewPage(int pageNum) throws IOException {
-		if (pageNum >= 1 && pageNum <= fNumPages) {
-			fPDFIcon = null;
-			
-			int cPage = 1;
-			int rangeNum = 0;
-			int nextSize = pageRangeList.get(rangeNum).size();;
-			
-			while (cPage + nextSize <= pageNum) {
-				cPage += nextSize;
-				if (rangeNum + 1 < numPageRanges) {
-					nextSize = pageRangeList.get(++rangeNum).size();
-				}
-			}
-			
-			PDDocument pdf = pdfList.get(pageEntryPDFList.get(rangeNum));
-			int pageNumPos = pageRangeList.get(rangeNum).get(pageNum - cPage);
-			finalRenderer = new PDFRenderer(pdf);
-			fPDFIcon = new ImageIcon(finalRenderer.renderImage(pageNumPos - 1));
-			curFPage = pageNum;
+		if (pageNum < 1) {
+			pageNum = 1;
+		} else if (pageNum > fNumPages) {
+			pageNum = fNumPages;
 		}
+		
+		fPDFIcon = null;
+		
+		int cPage = 1;
+		int rangeNum = 0;
+		int nextSize = pageRangeList.get(rangeNum).size();;
+		
+		while (cPage + nextSize <= pageNum) {
+			cPage += nextSize;
+			if (rangeNum + 1 < numPageRanges) {
+				nextSize = pageRangeList.get(++rangeNum).size();
+			}
+		}
+		
+		PDDocument pdf = pdfList.get(pageEntryPDFList.get(rangeNum));
+		int pageNumPos = pageRangeList.get(rangeNum).get(pageNum - cPage);
+		finalRenderer = new PDFRenderer(pdf);
+		fPDFIcon = new ImageIcon(finalRenderer.renderImage(pageNumPos - 1));
+		curFPage = pageNum;
 		
 		setChanged();
 		notifyObservers();

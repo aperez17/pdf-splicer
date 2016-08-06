@@ -1,3 +1,10 @@
+## 0.1.3 (August 6, 2016)
+
+Bug Fixes:
+
+- Fixed bug where the "<<" and ">>" buttons in both previews do nothing
+if there are fewer than 10 pages left in that direction in the PDF
+
 ## 0.1.2 (August 5, 2016)
 
 Bug Fixes:

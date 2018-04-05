@@ -13,10 +13,11 @@ out of them, or create a PDF with a subset of pages from a single PDF.
 ### Instructions
 
 1. After launching the application, click `Load`, and use the file chooser to select a PDF.
-To select multiple, hold Control (Command on OSX) or Shift and select more files. To remove 1 or
-more PDF(s), simply select it in the list and click `Remove`, or `Remove All` to clear the list.
-Selecting the loaded PDFs in the list will display a preview of them, which you can navigate via
-the arrows or simply typing in a page number in the text field.
+To select multiple, hold Control (Command on OSX) or Shift and select more files. You can also
+drag and drop files from your PC into the list. To remove 1 or more PDF(s), simply select it in
+the list and click `Remove`, or `Remove All` to clear the list. Selecting the loaded PDFs
+in the list will display a preview of them, which you can navigate via the arrows or simply typing
+in a page number in the text field.
    
 2. After loading all necessary PDFs, navigate to the `Page Selection` Tab at the top, and select
 a PDF from the drop down menu. Now you can enter a page range in the text field at the bottom.

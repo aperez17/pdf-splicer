@@ -87,19 +87,17 @@ public class SplicerModel extends Observable {
 	 * Add a PDF.
 	 * 
 	 * @param file the PDF file
-	 * @return {@code true} if successfully added
 	 * @throws IOException if the file cannot be read
 	 */
-	public boolean addPDF(File file) throws IOException {
+	public void addPDF(File file) throws IOException {
 		String name = file.getName();
 		if (pdfList.containsKey(name)) {
-			return false;
+			return;
 		}
 		pdfList.put(name, PDDocument.load(file));
 		pdfListModel.addElement(name);
 		pdfComboBoxModel.addElement(name);
 		++numPDFs;
-		return true;
 	}
 	
 	/**

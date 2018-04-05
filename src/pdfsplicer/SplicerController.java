@@ -64,10 +64,7 @@ public class SplicerController {
 			String fileName = selectedFiles[i].getName();
 			if (fileName.substring(fileName.length() - 4).equals(".pdf")) {
 				try {
-					boolean success = model.addPDF(selectedFiles[i]);
-					if (!success) {
-						error = UIConstants.ERROR_ALREADY_LOADED;
-					}
+					model.addPDF(selectedFiles[i]);
 				} catch (IOException e) {
 					error = UIConstants.ERROR_UNREADABLE;
 				}

@@ -24,14 +24,17 @@ import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
+import javax.swing.TransferHandler;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 import java.awt.Font;
 import java.awt.BorderLayout;
 import java.io.File;
+import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -46,6 +49,9 @@ import javax.swing.JScrollPane;
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
+import java.awt.datatransfer.DataFlavor;
+import java.awt.datatransfer.Transferable;
+
 import javax.swing.border.BevelBorder;
 import javax.swing.border.SoftBevelBorder;
 import java.awt.Component;
@@ -155,6 +161,9 @@ public class SplicerView implements Observer {
 		// FileChooser dialog to open and save PDFs
 		fileChooser = new JFileChooser(new File(System.getProperty("user.home")));
 		fileChooser.setMultiSelectionEnabled(true);
+		FileNameExtensionFilter fileFilter = new FileNameExtensionFilter("PDF Files", "pdf");
+		fileChooser.setFileFilter(fileFilter);
+		fileChooser.setAcceptAllFileFilterUsed(false);
 		
 		// Tabbed pane that sorts the different functionality
 		pnlTabs = new JTabbedPane(JTabbedPane.TOP);
@@ -191,6 +200,41 @@ public class SplicerView implements Observer {
 			}
 		});
 		lstPDFList.setModel(model.getPDFListModel());
+		lstPDFList.setDragEnabled(true);
+		lstPDFList.setTransferHandler(new TransferHandler() {
+            private static final long serialVersionUID = 1L;
+
+            @Override
+	        public boolean canImport(TransferHandler.TransferSupport info) {
+	            if (!info.isDataFlavorSupported(DataFlavor.javaFileListFlavor)) {
+	                return false;
+	            }
+	            return true;
+	        }
+
+	        @SuppressWarnings("unchecked")
+            @Override
+	        public boolean importData(TransferHandler.TransferSupport info) {
+	            if (!info.isDrop()) {
+	                return false;
+	            }
+
+	            if (!info.isDataFlavorSupported(DataFlavor.javaFileListFlavor)) {
+	                return false;
+	            }
+
+	            Transferable t = info.getTransferable();
+	            List<File> data;
+	            try {
+	                data = (List<File>)t.getTransferData(DataFlavor.javaFileListFlavor);
+	            } 
+	            catch (Exception e) { return false; }
+                UIConstants error = controller.loadPDF(data.toArray(new File[0]));
+                errorMessage(error);
+                lstPDFList.setSelectedIndex(lstPDFList.getModel().getSize() - 1);
+	            return true;
+	        }
+		});
 		
 		pnlLPDFPreview = new JScrollPane();
 		pnlLPDFPreview.setViewportBorder(new SoftBevelBorder(BevelBorder.LOWERED, null, null, null, null));
@@ -547,7 +591,11 @@ public class SplicerView implements Observer {
 				} else {
 					fileChooser.setDialogTitle("Save PDF");
 					if (fileChooser.showSaveDialog(frame) == JFileChooser.APPROVE_OPTION) {
-						UIConstants error = controller.createPDF(fileChooser.getSelectedFile());
+					    File selectedFile = fileChooser.getSelectedFile();
+			            if (!selectedFile.getName().substring(selectedFile.getName().length() - 4).equals(".pdf")) {
+			                selectedFile = new File(selectedFile.getAbsolutePath() + ".pdf");
+			            }
+						UIConstants error = controller.createPDF(selectedFile);
 						errorMessage(error);
 					}
 				}
@@ -696,9 +744,6 @@ public class SplicerView implements Observer {
 	 */
 	private void errorMessage(UIConstants error) {
 		switch (error) {
-		case ERROR_ALREADY_LOADED:
-			JOptionPane.showMessageDialog(frame, "File(s) already loaded.", "Error Loading PDF", JOptionPane.ERROR_MESSAGE);
-			break;
 		case ERROR_UNREADABLE:
 			JOptionPane.showMessageDialog(frame, "File is not readable.", "Error Loading PDF", JOptionPane.ERROR_MESSAGE);
 			break;

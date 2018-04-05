@@ -1,3 +1,11 @@
+## 0.1.4 (April 5, 2018)
+
+Features:
+
+- Added Drag and Drop functionality to loaded PDF list
+- Made it so only PDF files can be seen when loading or saving using the file chooser
+- When saving the finalized PDF, the utility now automatically adds the ".pdf" extension to the file if it does not already have it
+
 ## 0.1.3 (August 6, 2016)
 
 Bug Fixes:

@@ -241,6 +241,7 @@ public class SplicerView implements Observer {
 		
 		lblLPDFPreview = new JLabel("");
 		pnlLPDFPreview.setViewportView(lblLPDFPreview);
+        lblLPDFPreview.setHorizontalAlignment(SwingConstants.CENTER);
 		GridBagConstraints gbc_pnlLPDFPreview = new GridBagConstraints();
 		gbc_pnlLPDFPreview.fill = GridBagConstraints.BOTH;
 		gbc_pnlLPDFPreview.insets = new Insets(10, 10, 5, 10);
@@ -616,6 +617,7 @@ public class SplicerView implements Observer {
 		lblFPDFPreview = new JLabel("");
 		pnlFPDFPreview.setViewportView(lblFPDFPreview);
 		lblFPDFPreview.setBorder(new SoftBevelBorder(BevelBorder.LOWERED, null, null, null, null));
+        lblFPDFPreview.setHorizontalAlignment(SwingConstants.CENTER);
 		
 		lblFNumPages = new JLabel("");
 		lblFNumPages.setHorizontalAlignment(SwingConstants.CENTER);

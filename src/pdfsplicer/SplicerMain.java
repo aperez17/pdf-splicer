@@ -34,6 +34,7 @@ public class SplicerMain {
 	 * @param args not used
 	 */
 	public static void main(String[] args) {
+	    System.setProperty("sun.java2d.cmm", "sun.java2d.cmm.kcms.KcmsServiceProvider");
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {

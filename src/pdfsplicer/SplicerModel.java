@@ -31,6 +31,7 @@ import javax.swing.DefaultListModel;
 import javax.swing.ImageIcon;
 
 import org.apache.pdfbox.cos.COSDictionary;
+import org.apache.pdfbox.io.MemoryUsageSetting;
 import org.apache.pdfbox.multipdf.PDFCloneUtility;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.pdmodel.PDPage;
@@ -94,7 +95,7 @@ public class SplicerModel extends Observable {
 		if (pdfList.containsKey(name)) {
 			return;
 		}
-		pdfList.put(name, PDDocument.load(file));
+		pdfList.put(name, PDDocument.load(file, MemoryUsageSetting.setupTempFileOnly()));
 		pdfListModel.addElement(name);
 		pdfComboBoxModel.addElement(name);
 		++numPDFs;
@@ -353,7 +354,7 @@ public class SplicerModel extends Observable {
 	public void makeFinalizedPDF(File saveFile) throws IOException {
 
 		PDDocument doc = null;
-		PDDocument newdoc = new PDDocument();
+		PDDocument newdoc = new PDDocument(MemoryUsageSetting.setupTempFileOnly());
 		
 		for (int i = 0; i < pageEntryPDFList.size(); ++i) {
 			doc = pdfList.get(pageEntryPDFList.get(i));

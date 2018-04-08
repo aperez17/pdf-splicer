@@ -1,3 +1,14 @@
+## 0.2.0 (April 8, 2018)
+
+Bug Fixes:
+
+- Fixed issue with larger PDFs not loading or saving due to running out of memory
+- Fixed PDF preview not being centered in the view panel
+
+Other:
+
+- Updated PDFBox dependency to 2.0.9
+
 ## 0.1.4 (April 5, 2018)
 
 Features:
